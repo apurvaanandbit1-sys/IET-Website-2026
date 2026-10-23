@@ -36,3 +36,17 @@ export const galleryItems = [
     title: 'The people behind IET',
   },
 ];
+
+// Replace preview entries with their own image, alt, category, and title as assets arrive.
+export const galleryArchiveItems = Array.from({ length: 100 }, (_, index) => {
+  const source = galleryItems[index % galleryItems.length];
+  if (index < galleryItems.length) return { ...source, id: `gallery-${index + 1}` };
+
+  return {
+    ...source,
+    id: `gallery-${index + 1}`,
+    category: 'PREVIEW IMAGE',
+    title: `Gallery photo ${String(index + 1).padStart(2, '0')}`,
+    alt: `${source.alt} (temporary preview for gallery slot ${index + 1})`,
+  };
+});

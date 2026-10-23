@@ -1,13 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Arrow from './Arrow';
-import { galleryItems } from '../pages/gallery/data/gallery';
+import { galleryArchiveItems } from '../pages/gallery/data/gallery';
+
+const PAGE_SIZE = 25;
+const HOME_ROW_SIZE = 8;
+const HOME_INITIAL_COUNT = HOME_ROW_SIZE * 2;
+const HOME_MORE_COUNT = HOME_ROW_SIZE * 3;
 
 function GallerySection({ standalone = false }) {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(standalone ? PAGE_SIZE : HOME_INITIAL_COUNT);
   const closeButtonRef = useRef(null);
+  const dialogRef = useRef(null);
+  const items = galleryArchiveItems;
+  const isOpen = activeIndex !== null;
 
   useEffect(() => {
-    if (activeIndex === null) return undefined;
+    if (!isOpen) return undefined;
 
     const previousOverflow = document.body.style.overflow;
     const previouslyFocusedElement = document.activeElement;
@@ -18,9 +28,20 @@ function GallerySection({ standalone = false }) {
       if (event.key === 'Escape') {
         setActiveIndex(null);
       } else if (event.key === 'ArrowRight') {
-        setActiveIndex((index) => (index + 1) % galleryItems.length);
+        setActiveIndex((index) => (index + 1) % items.length);
       } else if (event.key === 'ArrowLeft') {
-        setActiveIndex((index) => (index - 1 + galleryItems.length) % galleryItems.length);
+        setActiveIndex((index) => (index - 1 + items.length) % items.length);
+      } else if (event.key === 'Tab') {
+        const controls = Array.from(dialogRef.current?.querySelectorAll('button') ?? []);
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
       }
     };
 
@@ -32,7 +53,7 @@ function GallerySection({ standalone = false }) {
         previouslyFocusedElement.focus();
       }
     };
-  }, [activeIndex]);
+  }, [isOpen, items]);
 
   const sectionClass = standalone
     ? 'gallery-section gallery-page-body page-body container'
@@ -45,28 +66,34 @@ function GallerySection({ standalone = false }) {
           <div className="section-head">
             <div>
               <span className="kicker">04 / GALLERY</span>
-              <h2 className="reveal-title">
-                A closer look.
-                <br />
-                <em>Built together.</em>
-              </h2>
+              <h2 className="reveal-title">GALLERY<span className="gallery-hero-period">.</span></h2>
+              <p className="gallery-home-tagline">Moments that <em>bring us together.</em></p>
             </div>
             <a className="text-link" href="/gallery">
               View the gallery <Arrow />
             </a>
           </div>
         )}
+        {standalone && (
+          <div className="gallery-archive-head">
+            <div>
+              <span className="kicker">THE ARCHIVE / {items.length} FRAMES</span>
+              <h2>Inside the chapter.</h2>
+            </div>
+            <p>Preview images repeat while we build the archive. New photos will take their place as they arrive.</p>
+          </div>
+        )}
         <div className="chapter-gallery-grid">
-          {galleryItems.map((item, index) => (
+          {items.slice(0, visibleCount).map((item, index) => (
             <button
               className="chapter-gallery-card"
-              key={item.image}
+              key={item.id ?? item.image}
               type="button"
               onClick={() => setActiveIndex(index)}
               aria-label={`View ${item.title} image`}
             >
               <span className="chapter-gallery-image">
-                <img src={item.image} alt={item.alt} loading="lazy" />
+                <img src={item.image} alt={item.alt} loading={index < 3 ? 'eager' : 'lazy'} />
                 <span className="chapter-gallery-zoom" aria-hidden="true">
                   +
                 </span>
@@ -78,15 +105,24 @@ function GallerySection({ standalone = false }) {
             </button>
           ))}
         </div>
+        {visibleCount < items.length && (
+          <div className="gallery-load-more">
+            <span>Showing {visibleCount} of {items.length} frames</span>
+            <button type="button" onClick={() => setVisibleCount((count) => Math.min(count + (standalone ? PAGE_SIZE : HOME_MORE_COUNT), items.length))}>
+              {standalone ? 'Load more photos' : 'View more'} <Arrow />
+            </button>
+          </div>
+        )}
       </section>
 
-      {activeIndex !== null && (
+      {activeIndex !== null && createPortal(
         <div className="gallery-lightbox" role="presentation" onClick={() => setActiveIndex(null)}>
           <div
+            ref={dialogRef}
             className="gallery-lightbox-dialog"
             role="dialog"
             aria-modal="true"
-            aria-label={`Image viewer: ${galleryItems[activeIndex].title}`}
+            aria-label={`Image viewer: ${items[activeIndex].title}`}
             onClick={(event) => event.stopPropagation()}
           >
             <button
@@ -102,34 +138,37 @@ function GallerySection({ standalone = false }) {
               className="gallery-lightbox-nav gallery-lightbox-previous"
               type="button"
               onClick={() =>
-                setActiveIndex((index) => (index - 1 + galleryItems.length) % galleryItems.length)
+                setActiveIndex((index) => (index - 1 + items.length) % items.length)
               }
               aria-label="Previous image"
             >
               ‹
             </button>
-            <img
-              className="gallery-lightbox-image"
-              src={galleryItems[activeIndex].image}
-              alt={galleryItems[activeIndex].alt}
-            />
+            <div className="gallery-lightbox-stage">
+              <img
+                className="gallery-lightbox-image"
+                src={items[activeIndex].image}
+                alt={items[activeIndex].alt}
+              />
+            </div>
             <button
               className="gallery-lightbox-nav gallery-lightbox-next"
               type="button"
-              onClick={() => setActiveIndex((index) => (index + 1) % galleryItems.length)}
+              onClick={() => setActiveIndex((index) => (index + 1) % items.length)}
               aria-label="Next image"
             >
               ›
             </button>
             <div className="gallery-lightbox-caption">
-              <span>{galleryItems[activeIndex].category}</span>
-              <strong>{galleryItems[activeIndex].title}</strong>
+              <span>{items[activeIndex].category}</span>
+              <strong>{items[activeIndex].title}</strong>
               <small>
-                {activeIndex + 1} / {galleryItems.length}
+                {activeIndex + 1} / {items.length}
               </small>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );
