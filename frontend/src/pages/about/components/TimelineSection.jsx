@@ -47,25 +47,25 @@ function TimelineSection() {
       year: "2019",
       title: "Inception & Vision",
       desc: "IET BIT Mesra Student Chapter was established to build a diverse home across engineering and technology.",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop", // Abstract earth network
+      image: "/assets/about/bit-mesra-building.png",
     },
     {
       year: "2021",
       title: "Scaling the Community",
       desc: "We introduced focused C++ workshops and dynamic campus competitions to foster practical problem-solving.",
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1000&auto=format&fit=crop", // Tech servers
+      image: "/assets/about/scaling-the-community.jpg",
     },
     {
       year: "2024",
       title: "Flagship Innovation",
       desc: "Launched high-pressure programming challenges like Rewind Recode and end-to-end simulations with SWE Quest.",
-      image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=3540&auto=format&fit=crop",
+      image: "/assets/about/flagship-innovation.jpg",
     },
     {
       year: "2026",
       title: "The Next Chapter",
       desc: "As more builders committed to development and systems, we expanded our toolkit, bridging the gap between foundational data structures and competitive execution.",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=3544&auto=format&fit=crop",
+      image: "/assets/about/the-next-chapter.jpg",
     }
   ];
 

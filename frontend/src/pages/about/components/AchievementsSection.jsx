@@ -3,36 +3,38 @@ import '../styles/achievements.css';
 function AchievementsSection() {
   const achievements = [
     {
-      circle: "500+",
+      circle: "200+",
       kicker: "STRONG NETWORK",
       title: "Growing Together",
-      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop", // Team collaboration
-      quote: "Over 500 active developers and engineers across campus",
+      image: '/assets/about/growing-together.jpg',
+      position: "center 20%",
+      quote: "Over 200 active developers and engineers across campus",
       desc: "Peer-to-peer learning culture",
     },
     {
       circle: "#55",
       kicker: "ICPC REGIONALS",
-      title: "ICPC Amritapuri",
+      title: "ICPC",
       image: '/assets/gallery/icpc-amritapuri.jpg',
       position: "center 15%",
       quote: "Rank 55 out of ~310 teams at the ICPC Amritapuri Multisite Regionals as a 2nd-year team from BIT Mesra.",
       desc: "Team Trie Again · 2nd-Year",
     },
     {
-      circle: "Top",
-      kicker: "AWARDS & REACH",
-      title: "Campus Leaders",
-      image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop", // Achievement/students
-      quote: "Recognized as a leading technical chapter at BIT Mesra",
-      desc: "Top-tier developers globally",
+      circle: "C++",
+      kicker: "ANNUAL WORKSHOP",
+      title: "C++ Workshop",
+      image: '/assets/about/cpp-workshop-highlights.jpg',
+      position: "center 20%",
+      quote: "A three-day flagship workshop introducing programming fundamentals, STL, and hands-on problem-solving to hundreds of students.",
+      desc: "3-Day Hands-on Bootcamp",
     }
   ];
 
   return (
     <section className="achievements-section container section-reveal">
       <div className="achievements-header">
-        <h2>Our <em>Achievements</em></h2>
+        <h2>Our <em>Highlights</em></h2>
         <p className="achievements-subtitle">Building a legacy through code and community.</p>
       </div>
 
