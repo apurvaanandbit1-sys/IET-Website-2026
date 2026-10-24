@@ -1043,6 +1043,9 @@
     transform 0.4s ease,
     filter 0.4s ease;
 }
+.gallery-frame img[src*="split-solve"] {
+  filter: grayscale(1) brightness(0.78) contrast(1.05);
+}
 .gallery-item:hover .gallery-label {
   color: rgba(220, 205, 255, 0.9);
 }
@@ -1058,6 +1061,10 @@
 .gallery-item.is-expanded .gallery-frame img {
   filter: grayscale(0);
   transform: scale(1.04);
+}
+.gallery-item:hover .gallery-frame img[src*="split-solve"],
+.gallery-item.is-expanded .gallery-frame img[src*="split-solve"] {
+  filter: grayscale(0) brightness(0.82) contrast(1.05);
 }
 
 /* Controls */

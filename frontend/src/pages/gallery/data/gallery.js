@@ -5,8 +5,7 @@ export const galleryItems = [
     thumbnail: '/assets/gallery/thumbnails/gallery-01-icpc-amritapuri.jpg',
     alt: 'IET BIT Mesra team at the ICPC Amritapuri event',
     category: 'COMPETITIVE PROGRAMMING',
-    title: 'ICPC Amritapuri',
-    isPortrait: true,
+
   },
   {
     id: 'gallery-2',

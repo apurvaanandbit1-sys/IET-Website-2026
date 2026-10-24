@@ -2,31 +2,25 @@ import { useRef, useEffect, useCallback, useState } from 'react';
 
 const gallerySlides = [
   {
-    src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=60',
+    src: '/assets/about/split-solve.jpg',
     label: 'SPLIT SOLVE, 2026',
     size: 'small',
     offset: 'top',
   },
   {
-    src: 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
+    src: '/assets/about/cpp-workshop.jpg',
     label: 'C++ WORKSHOP, 2026',
     size: 'large',
     offset: 'center',
   },
   {
-    src: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=60',
-    label: 'SWE QUEST, 2026',
-    size: 'small',
+    src: '/assets/about/rewind-recode.jpg',
+    label: 'REWIND RECODE, 2026',
+    size: 'medium',
     offset: 'bottom',
   },
   {
-    src: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=60',
-    label: 'REWIND RECODE, 2026',
-    size: 'medium',
-    offset: 'top',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
+    src: '/assets/about/blind-coding.png',
     label: 'BLIND CODING, 2026',
     size: 'large',
     offset: 'center',

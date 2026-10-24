@@ -15,10 +15,16 @@ function About() {
           About <em>us.</em>
         </h1>
         <p>
-          We are the IET and we inspire, inform and influence the global engineering community to
-          engineer a better world. As a diverse home across engineering and technology, we share
-          knowledge that helps make better sense of the world in order to solve the challenges that
-          matter. It’s why we are uniquely placed to champion engineering.
+          IET On Campus, BIT Mesra, is a student-led technical society dedicated to building a
+          strong culture of programming, technology, and innovation on campus. We organize coding
+          contests, technical workshops, and interactive sessions that help students develop
+          practical skills, explore new technologies, and learn beyond the classroom.
+        </p>
+        <p>
+          Our community brings together students who share an interest in technology and
+          problem-solving, providing opportunities to collaborate, exchange ideas, and learn from
+          one another. Through our activities, we aim to make technical learning accessible,
+          encourage curiosity, and help students turn their knowledge into practical experience.
         </p>
         <div className="page-body-actions">
           <a className="button outline" href="/about">
